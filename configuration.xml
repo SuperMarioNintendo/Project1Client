@@ -1,0 +1,71 @@
+<configuration>
+    <db>
+        <dbName>waterpurification</dbName>
+        <host>localhost</host>
+        <port>3306</port>
+        <username>root</username>
+        <password>SuperMarioStar1981</password>
+    </db>
+    <queries>
+        <query id="a">
+            <!-- Calls for all water treatment facilities and their treatment types. -->
+            SELECT Name, TreatmentPerformed FROM WaterTreatmentFacility;
+        </query>
+        <query id="b">
+            <!-- Calls for all water treatment facilities that use filtration as their treatment type. -->
+            SELECT Name, TreatmentPerformed FROM WaterTreatmentFacility WHERE TreatmentPerformed = 'Filtration';
+        </query>
+        <query id="c">
+            <!-- Calls for the total water consumption per month all businesses. -->
+            SELECT SUM(ConsumptPerMonthAvg) AS TotalConsumption FROM Business;
+        </query>
+        <query id="d">
+            <!-- Calls for the total wastewater production of all businesses. -->
+            SELECT SUM(WasteWaterPerMonthAvg) AS TotalWasteWater FROM Business;
+        </query>
+        <query id="e">
+            <!-- Calls for the average water consumption for all industrial business. -->
+            SELECT AVG(ConsumptPerMonthAvg) AS AvgIndustrialConsumption FROM Business WHERE Type = 'Industrial' OR 'Hybrid';
+        </query>
+        <query id="f">
+            <!-- Calls for the average waste water generated for month for all agricultural businesses. -->
+            SELECT AVG(WasteWaterPerMonthAvg) AS AvgAgriculturalWasteWater FROM Business WHERE Type = 'Agricultural' OR 'Hybrid';
+        </query>
+        <query id="g">
+            <!-- Calls for water sources with qualities less than some value. -->
+            <!-- Placeholder value 5 is used. Replace with desired quality threshold. -->
+            SELECT Location, PresQual FROM WaterSource WHERE PresQual &lt; 5;
+        </query>
+        <query id="h">
+            <!-- Calls for treatments information that was done to a given water source. -->
+            <!-- Placeholder value 'Dropstar River' is used. Replace with the actual source location. -->
+            SELECT T.TreatmentName, T.Description FROM Treatment T
+            JOIN TreatmentTime TT ON T.TreatmentName = TT.TreatmentType WHERE TT.TreatedSourceLocation = 'Dropstar River';
+        </query>
+        <query id="i">
+            <!-- Calls to list treatments that need to be done for a given regulation. -->
+            <!-- Placeholder value 101 is used for the Regulation ID. Replace with the actual ID. -->
+            SELECT RegulatedTreatment FROM Regulation WHERE IDNumber = 1;
+        </query>
+        <query id="j">
+            <!-- Calls to insert two new treatments. -->
+            INSERT INTO Treatment (TreatmentNumber, TreatmentName, Description) VALUES (6, 'UV Disinfection', 'Using ultraviolet light to disinfect water.'), (7, 'Ozonation', 'Using ozone gas to disinfect water.');
+        </query>
+        <query id="k">
+            <!-- Calls to insert a new regulation that requires these two new treatments to be performed. -->
+            <!-- Note: Regulations link one-to-one with a treatment in the current schema. -->
+            INSERT INTO Regulation (IDNumber, RegulatedTreatment, RegName, RegApprovalDate, RegDescription) VALUES (6, 'UV Disinfection', 'New Disinfection Standard 2025', '2025-01-01', 'Regulation requiring UV disinfection for all drinking water.');
+        </query>
+        <query id="l">
+            <!-- Calls to update the database to make one treatment facility to perform two treatments. -->
+            <!-- This query uses the new junction table TreatmentsPerformed. -->
+            <!-- Placeholder values 'Facility Ultraviolet', 'Ozonation', and 'UV Disinfection' are used. -->
+            INSERT INTO TreatmentsPerformed (Treatment, TreatmentFacility) VALUES ('UV Disinfection', 'Facility Ultraviolet');
+        </query>
+        <query id="m">
+            <!-- Calls for the total amount of water treated between two dates. -->
+            <!-- Placeholder dates '1950-01-01' and '2020-01-31' are used. Replace with desired dates. -->
+            SELECT SUM(QuantityTreated) AS TotalTreatedWater FROM TreatmentTime WHERE TreatmentDate BETWEEN '1950-01-01' AND '2020-01-31';
+        </query>
+    </queries>
+</configuration>

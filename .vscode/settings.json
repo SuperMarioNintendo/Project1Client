@@ -1,0 +1,17 @@
+{
+    "git.autofetch": true,
+    "jdk.jdkhome": "Downloads\\jdk-25_windows-x64_bin",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-25",
+            "path": "Downloads\\jdk-25_windows-x64_bin",
+            "default": true
+        }
+    ],
+    "java.project.sourcePaths": ["src"],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "C://Users/rjgro/OneDrive/Desktop/Bellevue College Classes/2025/Autumn/Computer Science 331/mysql-connector-j-9.5.0/mysql-connector-j-9.5.0.jar"
+    ]
+}
